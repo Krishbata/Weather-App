@@ -121,14 +121,12 @@ public class DetailWeatherActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(DetailWeatherActivity.this, "Weather Fetch Successfully", Toast.LENGTH_SHORT).show();
                 loadingDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(DetailWeatherActivity.this, "Error : " + error, Toast.LENGTH_SHORT).show();
-                loadingDialog.dismiss();
             }
         });
         requestQueue.add(jsonObjectRequest);

@@ -1,10 +1,15 @@
 package com.example.weatherapp.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.weatherapp.Adapter.CityAdapter;
 import com.example.weatherapp.Model.CityModel;
@@ -17,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView cityRecyclerView;
     private List<CityModel> cityModelList;
     private CityAdapter cityAdapter;
+    private int PERMISSION_CODE=200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
