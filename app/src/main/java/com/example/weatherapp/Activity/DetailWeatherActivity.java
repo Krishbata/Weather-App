@@ -104,13 +104,6 @@ public class DetailWeatherActivity extends AppCompatActivity {
                         String forecast_date=outputDate.format(input.parse(forecast_date_txt));
                         String forecast_day=outputDay.format(input.parse(forecast_date_txt));
                         String forecast_icon="http://openweathermap.org/img/w/"+forecastObject.getJSONArray("weather").getJSONObject(0).getString("icon")+".png";
-                        Log.d("tushar",forecast_day+forecast_icon+forecast_temp_min+forecast_temp_max+forecast_date);
-//                        ForecastModel model=new ForecastModel();
-//                        model.setForecastDay(forecast_day);
-//                        model.setForecastIcon(forecast_icon);
-//                        model.setForecastMinTemp(forecast_temp_min);
-//                        model.setForecastMaxTemp(forecast_temp_max);
-//                        model.setForecastDate(forecast_date);
                         forecastModelList.add(new ForecastModel(forecast_day,forecast_icon,forecast_temp_min,forecast_temp_max,forecast_date));
                         forecastAdapter=new ForecastAdapter(DetailWeatherActivity.this,forecastModelList);
                         forecastRecyclerView.setAdapter(forecastAdapter);
