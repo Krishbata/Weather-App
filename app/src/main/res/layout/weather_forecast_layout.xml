@@ -49,11 +49,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:textSize="25sp"
-                android:layout_marginEnd="10dp"
+                android:textSize="23sp"
+                android:layout_marginEnd="5dp"
                 android:textStyle="bold"
                 android:gravity="center"
-                android:text="25.45" />
+                android:text="25.45°C" />
 
             <TextView
                 android:id="@+id/weather_forecast_max_temp"
@@ -61,11 +61,11 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:layout_marginStart="5dp"
                 android:gravity="center"
-                android:text="35.24" />
+                android:text="26.45°C" />
         </LinearLayout>
 
         <TextView
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textStyle="bold"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:text="08-01-2022" />

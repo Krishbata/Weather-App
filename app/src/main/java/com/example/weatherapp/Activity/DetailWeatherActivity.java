@@ -1,5 +1,6 @@
 package com.example.weatherapp.Activity;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +42,8 @@ public class DetailWeatherActivity extends AppCompatActivity {
     private List<ForecastModel> forecastModelList;
     private ForecastAdapter forecastAdapter;
     private SimpleDateFormat input,outputDay,outputDate;
+    private Dialog loadingDialog;
+    private DecimalFormat decimalFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,12 @@ public class DetailWeatherActivity extends AppCompatActivity {
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         forecastRecyclerView.setLayoutManager(layoutManager);
         forecastModelList=new ArrayList<>();
+        loadingDialog = new Dialog(DetailWeatherActivity.this);
+        loadingDialog.setContentView(R.layout.progress_dialog);
+        loadingDialog.setCancelable(false);
+        loadingDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        loadingDialog.show();
+        decimalFormat=new DecimalFormat("##.##");
         Fetch5DyasForcast(url);
     }
 
@@ -75,7 +85,7 @@ public class DetailWeatherActivity extends AppCompatActivity {
 
                     //getting current Tempreture
                     JSONObject mainObject=object.getJSONObject("main");
-                    weatherTempretureText = String.valueOf(Double.parseDouble(mainObject.getString("temp")) - 273.15).substring(0,4);
+                    weatherTempretureText = String.valueOf(decimalFormat.format(Double.parseDouble(mainObject.getString("temp")) - 273.15));
                     weatherTempreture.setText(weatherTempretureText+"°C");
                     //getting current Tempreture
 
@@ -98,8 +108,8 @@ public class DetailWeatherActivity extends AppCompatActivity {
                     for(int i=0;i<fiveDaysForecastArray.length();i++){
                         JSONArray forecastArray=response.getJSONArray("list");
                         JSONObject forecastObject=forecastArray.getJSONObject(i);
-                        String forecast_temp_min=forecastObject.getJSONObject("main").getString("temp_min");
-                        String forecast_temp_max=forecastObject.getJSONObject("main").getString("temp_max");
+                        String forecast_temp_min=decimalFormat.format(Double.parseDouble(forecastObject.getJSONObject("main").getString("temp_min"))-273.15);
+                        String forecast_temp_max=decimalFormat.format(Double.parseDouble(forecastObject.getJSONObject("main").getString("temp_max"))-273.15);
                         String forecast_date_txt=forecastObject.getString("dt_txt");
                         String forecast_date=outputDate.format(input.parse(forecast_date_txt));
                         String forecast_day=outputDay.format(input.parse(forecast_date_txt));
@@ -113,11 +123,13 @@ public class DetailWeatherActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Toast.makeText(DetailWeatherActivity.this, "Weather Fetch Successfully", Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(DetailWeatherActivity.this, "Error : " + error, Toast.LENGTH_SHORT).show();
+                loadingDialog.dismiss();
             }
         });
         requestQueue.add(jsonObjectRequest);

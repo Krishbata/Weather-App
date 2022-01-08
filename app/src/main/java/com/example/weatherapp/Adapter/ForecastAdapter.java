@@ -64,8 +64,8 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Viewho
         }
         public void setData(String day,String minTemp,String maxTemp,String date,String icon){
             forecastDay.setText(day);
-            forecastMinTemp.setText(minTemp);
-            forecastMaxTemp.setText(maxTemp);
+            forecastMinTemp.setText(minTemp+"°C");
+            forecastMaxTemp.setText(maxTemp+"°C");
             forecastDate.setText(date);
             Picasso.get().load(icon).placeholder(R.drawable.weather).into(forecastIcon);
         }
