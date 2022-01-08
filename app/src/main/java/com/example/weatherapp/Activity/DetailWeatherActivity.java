@@ -79,7 +79,6 @@ public class DetailWeatherActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-//                    forecastModelList.clear();
                     JSONArray fiveDaysForecastArray = response.getJSONArray("list");
                     JSONObject object = fiveDaysForecastArray.getJSONObject(0);
 
